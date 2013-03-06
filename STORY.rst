@@ -8,8 +8,8 @@ User story
 Script:
 
 - records stream (saves to /tmp) for time specified in `config.py`
-  - name is based on initial time (specify format in `config.py`)
-- checks space in S3 bucket (bucket name, and credectials are specified in `config.py`
+  - other options for streamripper may also be specified in config.py
+- checks space in S3 bucket (bucket name, and credentials are specified in `config.py`
   - if not enough space deletes old files (maximum space is in `config.py`)
 - uploads the recording
 
