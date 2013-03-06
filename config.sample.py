@@ -12,3 +12,9 @@ DESTINATION_DIRECTORY = '/tmp/stream2s3/'
 # number of seconds and destination directory
 # -s option so that subdirectory for a stream is not created
 STREAMRIPPER_OPTIONS_STRING = '-s'
+
+
+# Amazon S3 settings
+
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
