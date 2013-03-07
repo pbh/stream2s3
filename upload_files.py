@@ -14,6 +14,24 @@ conn = S3Connection(
 bucket = conn.create_bucket(config.BUCKET_NAME)
 
 
+# upload files
+
+for dirpath, dirnames, filenames in os.walk(config.DESTINATION_DIRECTORY):
+    print 'dirpath=', dirpath
+    print 'dirnames=', dirnames
+    print 'filenames=', filenames
+    relpath = os.path.relpath(dirpath, config.DESTINATION_DIRECTORY)
+    print 'relpath=', relpath
+    for f in filenames:
+        keyname = os.path.join(relpath, f)
+        print 'keyname=', keyname
+        filename = os.path.join(dirpath, f)
+        print 'filename=', filename
+        k = Key(bucket)
+        k.key = keyname
+        k.set_contents_from_filename(filename, replace=False)
+
+
 # check bucket size and clean if necessary
 
 total_bucket_size = 0
@@ -37,21 +55,3 @@ if total_bucket_size > config.MAX_BUCKET_SIZE_BYTES:
         if new_total_bucket_size < config.MAX_BUCKET_SIZE_BYTES:
             print 'deleted keys: {}'.format(count_deleted)
             break
-
-
-# upload files
-
-for dirpath, dirnames, filenames in os.walk(config.DESTINATION_DIRECTORY):
-    print 'dirpath=', dirpath
-    print 'dirnames=', dirnames
-    print 'filenames=', filenames
-    relpath = os.path.relpath(dirpath, config.DESTINATION_DIRECTORY)
-    print 'relpath=', relpath
-    for f in filenames:
-        keyname = os.path.join(relpath, f)
-        print 'keyname=', keyname
-        filename = os.path.join(dirpath, f)
-        print 'filename=', filename
-        k = Key(bucket)
-        k.key = keyname
-        k.set_contents_from_filename(filename, replace=False)
