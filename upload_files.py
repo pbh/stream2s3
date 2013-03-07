@@ -22,6 +22,7 @@ conn = S3Connection(
     config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY)
 
 bucket = conn.create_bucket(config.BUCKET_NAME)
+bucket.set_acl('public-read')
 
 
 # upload files
@@ -41,6 +42,8 @@ for dirpath, dirnames, filenames in os.walk(config.DESTINATION_DIRECTORY):
         k.key = keyname
         print 'uploading: {}'.format(keyname)
         k.set_contents_from_filename(filename, replace=False)
+	k.set_acl('public-read')
+	os.unlink(filename)
 
 
 # check bucket size and clean old files if necessary
