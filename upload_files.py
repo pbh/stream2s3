@@ -1,3 +1,12 @@
+"""
+Uploads recorded files to Amazon S3 bucket.
+
+Parameters for the buckets are in ``config.py``.
+
+A check is made at the end that size of the bucket is smaller than maximum.
+Old files are removed if necessary.
+"""
+
 import os
 import datetime
 
@@ -16,6 +25,7 @@ bucket = conn.create_bucket(config.BUCKET_NAME)
 
 
 # upload files
+
 print datetime.datetime.now()
 print 'Uploading from {}\n'.format(config.DESTINATION_DIRECTORY)
 

@@ -1,3 +1,7 @@
+"""
+Records a stream. Parameters for recording are stored in ``config.py``.
+"""
+
 import shlex
 from subprocess import call
 import datetime
