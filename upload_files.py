@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
@@ -15,12 +16,16 @@ bucket = conn.create_bucket(config.BUCKET_NAME)
 
 
 # upload files
+print datetime.datetime.now()
 print 'Uploading from {}\n'.format(config.DESTINATION_DIRECTORY)
 
 for dirpath, dirnames, filenames in os.walk(config.DESTINATION_DIRECTORY):
     relpath = os.path.relpath(dirpath, config.DESTINATION_DIRECTORY)
     for f in filenames:
-        keyname = os.path.join(relpath, f)
+        if relpath == '.':
+            keyname = f
+        else:
+            keyname = os.path.join(relpath, f)
         filename = os.path.join(dirpath, f)
         k = Key(bucket)
         k.key = keyname
