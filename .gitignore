@@ -1,3 +1,4 @@
 *.pyc
 progress.*
 config.py
+my_crontab.txt
